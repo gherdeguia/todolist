@@ -13,8 +13,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,6 +62,22 @@ public class TodoIntegrationTest {
                 ;
     }
 
+    @Test
+    void should_update_selected_item_when_call_update_api() throws Exception {
+        List<Todo> todos =todoListDataFactory();
+        todoRepository.saveAll(todos);
+
+        Todo todoItem = todoListDataFactory().get(1);
+        Integer returnedItemId = todoRepository.save(todoItem).getId();
+        String updatedTodoItem = "{ \"id\" : 2,\"text\" : \"coming from the post\", \"done\" : false  }";
+        //then
+        mockMvc.perform(put(format("/todos/%d", returnedItemId))
+                .contentType(APPLICATION_JSON)
+                .content(updatedTodoItem))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(returnedItemId))
+            ;
+    }
 
     private List<Todo> todoListDataFactory() {
         List<Todo> todos = new ArrayList<>();
