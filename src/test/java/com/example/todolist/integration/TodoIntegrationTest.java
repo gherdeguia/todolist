@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,11 +47,17 @@ public class TodoIntegrationTest {
     }
 
     @Test
-    void should_add_new_list_item_when_call_add_item_api(){
+    void should_add_new_list_item_when_call_add_item_api() throws Exception {
         List<Todo> todos =todoListDataFactory();
         todoRepository.saveAll(todos);
 
-        mockMvc
+        String newTodoItem = "{ \"text\" : \"coming from the post\", \"done\" : false  }";
+        
+        mockMvc.perform(post("/todos")
+                .contentType(APPLICATION_JSON)
+                .content(newTodoItem))
+                .andExpect(status().isCreated())
+                ;
     }
 
 
