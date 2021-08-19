@@ -42,6 +42,7 @@ public class TodoService {
 
     public Todo updateDoneItemService(Integer id, Todo todoDone) {
         Todo todoActual = todoRepository.findById(id).orElseThrow(null);
+        todoActual.setText(todoDone.getText());
         todoActual.setDone(todoDone.getDone());
         return todoRepository.save(todoActual);
     }
