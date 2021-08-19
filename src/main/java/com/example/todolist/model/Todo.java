@@ -38,7 +38,7 @@ public class Todo {
         this.text = text;
     }
 
-    public boolean isDone() {
+    public boolean getDone() {
         return done;
     }
 

@@ -40,6 +40,12 @@ public class TodoService {
                 .orElseThrow(null);
     }
 
+    public Todo updateDoneItemService(Integer id, Todo todoDone) {
+        Todo todoActual = todoRepository.findById(id).orElseThrow(null);
+        todoActual.setDone(todoDone.getDone());
+        return todoRepository.save(todoActual);
+    }
+
     public void deleteListItemService(Integer id) {
         todoRepository.deleteById(id);
     }
