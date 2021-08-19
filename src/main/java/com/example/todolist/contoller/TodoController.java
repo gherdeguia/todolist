@@ -38,4 +38,9 @@ public class TodoController {
         return todoService.updateListItemService(id, todo);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteItemList(@PathVariable Integer id){
+        todoService.deleteListItemService(id);
+    }
+
 }

@@ -39,4 +39,8 @@ public class TodoService {
                 })
                 .orElseThrow(null);
     }
+
+    public void deleteListItemService(Integer id) {
+        todoRepository.deleteById(id);
+    }
 }
