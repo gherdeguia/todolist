@@ -15,8 +15,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,6 +76,17 @@ public class TodoIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(returnedItemId))
             ;
+    }
+
+    @Test
+    void should_delete_list_item_when_call_delete_api() throws Exception {
+        List<Todo> todos =todoListDataFactory();
+        Integer itemToDelete = todoRepository.saveAll(todos).get(1).getId();
+
+        mockMvc.perform(delete(format("/todos/%d", itemToDelete)))
+                .andExpect(status().isOk())
+        ;
+
     }
 
     private List<Todo> todoListDataFactory() {
