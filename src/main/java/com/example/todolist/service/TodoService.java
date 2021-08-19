@@ -27,4 +27,16 @@ public class TodoService {
                 .orElseThrow(null);
     }
 
+    public Todo addNewListItemService(Todo todo) {
+        return todoRepository.save(todo);
+    }
+
+    public Todo updateListItemService(Integer id, Todo todo) {
+        return todoRepository.findById(id)
+                .map(todoItem -> {
+                    todo.setId(id);
+                    return todoRepository.save(todo);
+                })
+                .orElseThrow(null);
+    }
 }
