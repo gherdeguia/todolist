@@ -52,7 +52,7 @@ public class TodoIntegrationTest {
         todoRepository.saveAll(todos);
 
         String newTodoItem = "{ \"text\" : \"coming from the post\", \"done\" : false  }";
-        
+
         mockMvc.perform(post("/todos")
                 .contentType(APPLICATION_JSON)
                 .content(newTodoItem))

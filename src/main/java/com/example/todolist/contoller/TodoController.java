@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
@@ -27,5 +29,8 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Todo
+    public Todo addNewItemList(@RequestBody Todo todo){
+        return todoService.addNewListItemService(todo);
+    }
+
 }
