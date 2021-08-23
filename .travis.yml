@@ -1,0 +1,17 @@
+language: java
+dist: trusty
+jdk:
+- oraclejdk8
+before_install:
+- chmod +x gradlew
+before_script:
+- "./gradlew test"
+script:
+- "./gradlew build"
+deploy:
+  provider: heroku
+  api_key:
+    secure: XJkPrHh6IApvEvqrh9RrvYPdm5eKDYgbTSqNbQbTE1I5ywFGaEqNm5ilK8ZoNP5g6J5cz2jUhbd/apvsZiMU3BBIkNNJn4n7iQjoEXW36cSLHI8M/LLYUi5V3t8X5WM8XjwOaqM5/LEUCe4CQHysjJq4pwdYNn6IjBVQPSCqZzZAhsK9zUHYKPr4nm4w0joL7dEcF0qJ8O9nH+x/FmgTq536mgCSKe3AdH0cxHO9b68bX3cmVOdrsMXV0dz9Lxl+9RHEibeIKI4hPnqGd0Jim3Uvd9zJdJp1ZUn1Vvkv92WM8YPUX3kZP4BolfJmk7QQ8+MfesBnWurTk1+wL01Ki5CUuNUZ3vB7MQjK/jZ8x2X1l8+NCmGKGyAJOBA+LOxwJwmSqTCan1zNFvcLY2psfMFEEDFbeqzG/kxBt2JK0FKJdhHLvixscXHMH9+pIATdY9SIcGqcrDL9sD7e2/4GL13bK1sOEUDb1MzUDBjVO99eXy0ibjEZHBjXQCiv8iG1qNdslL8VIiuOMhI7WLJOXnvYRELC5CKdP00bbU4msYOOw/RjAyCmj5cuwCAyWub0dxRP7lNMqBwTXQsFflSQaZWQfHycKm5OdOrgrzgzpKmaYLaoT1qbK4WW2o/MHkDLkXbR0oXvaiSSMdEh6wOs5uPUHN9wJ9WGEua5PFg3jYk=
+  app: todolist-staging
+  on:
+    repo: gherdeguia/todolist
